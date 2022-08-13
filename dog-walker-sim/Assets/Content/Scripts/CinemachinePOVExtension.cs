@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Cinemachine;
+using UnityEngine;
 
 public class CinemachinePOVExtension : CinemachineExtension
 {
@@ -23,7 +21,7 @@ public class CinemachinePOVExtension : CinemachineExtension
     {
         if (vcam.Follow)
         {
-            if(stage == CinemachineCore.Stage.Aim)
+            if (stage == CinemachineCore.Stage.Aim)
             {
                 if (startingRotation == null)
                     startingRotation = transform.localRotation.eulerAngles;
@@ -32,7 +30,7 @@ public class CinemachinePOVExtension : CinemachineExtension
                 startingRotation.x += deltaInput.x * verticalSpeed * Time.deltaTime;
                 startingRotation.y += deltaInput.y * horizontalSpeed * Time.deltaTime;
 
-                startingRotation.y = Mathf.Clamp(startingRotation.y, -clampAngle, clampAngle); 
+                startingRotation.y = Mathf.Clamp(startingRotation.y, -clampAngle, clampAngle);
 
                 state.RawOrientation = Quaternion.Euler(-startingRotation.y, startingRotation.x, 0f);
             }

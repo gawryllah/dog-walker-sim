@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f402d547e8c731243a950e5937d33b95, type: 3}
+  m_Name: SOExtens
+  m_EditorClassIdentifier: 
+  clientExtens:
+  - {fileID: 11400000, guid: 828910b8dc10718439602ea2cb5938a3, type: 2}
+  - {fileID: 11400000, guid: 9ac47afa82df88b4ea54a4acc74ab200, type: 2}
+  - {fileID: 11400000, guid: c056fcc1f37bc0b4ca4660f2c9109dbf, type: 2}
+  - {fileID: 11400000, guid: 3bf691e91aa0f6342ad61a3dfcd26872, type: 2}
+  - {fileID: 11400000, guid: df69d89042af1774b86591fc54ec3d36, type: 2}
+  - {fileID: 11400000, guid: b6c0570b37bcc644d9f4a4f9bee7ceec, type: 2}
+  - {fileID: 11400000, guid: 8c47f1d3cf94ba549aa65692369bab4d, type: 2}
+  - {fileID: 11400000, guid: 9b8e81fc5b546c14ba7c45151ef246f5, type: 2}
+  - {fileID: 11400000, guid: 3795629eb33b0a640832c9af085c6b67, type: 2}
+  - {fileID: 11400000, guid: 231aa94794adea841bff784915d24090, type: 2}
+  - {fileID: 11400000, guid: 12b7ecda49a7cef45b0a49fcab384d97, type: 2}
+  dogExtens:
+  - {fileID: 11400000, guid: d04e25f232ec79a46836d9a20ae7f71a, type: 2}
+  - {fileID: 11400000, guid: c4f227b62928ff34f968f6a7eddc80f3, type: 2}
+  - {fileID: 11400000, guid: 3f92f2cd469a6e4419d933c2cafc0753, type: 2}
+  - {fileID: 11400000, guid: 7b3b314de2da1104da0c6e1e02d7e767, type: 2}
+  - {fileID: 11400000, guid: a0478e21f18ad0647b1a6f716e37b9ee, type: 2}
+  - {fileID: 11400000, guid: 1c5952cf299c0ce41bff05cd419f04e0, type: 2}
+  - {fileID: 11400000, guid: 085f43f889c84db4390f17d4e6af3b1d, type: 2}
+  - {fileID: 11400000, guid: 1072f9cda24a99f44909b7c67a3bd660, type: 2}
+  - {fileID: 11400000, guid: 4955e087c7213984199146324827ac50, type: 2}
+  - {fileID: 11400000, guid: f643da77c686c1a419eceda0779ee664, type: 2}
+  - {fileID: 11400000, guid: 0c8c8b6cbc6641a409aa2e0f24eca12d, type: 2}
+  initialized: 0

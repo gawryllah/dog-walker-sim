@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -10,14 +8,15 @@ public class InputManager : MonoBehaviour
 
     public static InputManager Instance
     {
-        get {
-                return instance;
+        get
+        {
+            return instance;
         }
     }
 
     private void Awake()
     {
-        if(instance != null && instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
         }
@@ -27,6 +26,8 @@ public class InputManager : MonoBehaviour
         }
 
         playerControls = new PlayerControls();
+
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
@@ -55,7 +56,7 @@ public class InputManager : MonoBehaviour
         return playerControls.PlayerDefault.Jump.triggered;
     }
 
-  
+
 }
 
 
