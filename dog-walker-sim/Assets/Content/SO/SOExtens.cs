@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -36,7 +35,7 @@ public class SOExtens : ScriptableObject
 
             foreach (DogSO dog in dogExtens)
             {
-                dog.initDog(dognames[Random.Range(0, dognames.Length - 1)], Random.Range(0f, 100f), Random.Range(0f, 100f), 0);
+                dog.initDog(dognames[Random.Range(0, dognames.Length - 1)], Random.Range(0f, 100f), Random.Range(0f, 100f), 0, Random.Range(0f, 50f));
             }
 
             if (clientExtens.Count == dogExtens.Count)
@@ -52,13 +51,13 @@ public class SOExtens : ScriptableObject
                 Debug.Log($"{ (clientExtens.Count > dogExtens.Count ? "Not enough dogs" : "Not enough clients")}");
             }
 
-          
+
             initialized = true;
 
             EditorUtility.SetDirty(this);
             AssetDatabase.SaveAssets();
         }
-  
+
     }
 
 
@@ -77,6 +76,15 @@ public class SOExtens : ScriptableObject
         return address;
     }
 
+    public Dictionary<ClientSO, DogSO> getDictonaryOwnerDogRelation()
+    {
+        return ownerDogRelation;
+    }
+
+    public ClientSO getClinet(int index)
+    {
+        return clientExtens[index];
+    }
 
 
     private string[] names = new string[] {

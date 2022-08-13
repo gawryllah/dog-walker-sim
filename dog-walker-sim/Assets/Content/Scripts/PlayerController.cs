@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
-
+        Interact();
     }
 
     void Move()
@@ -53,6 +53,16 @@ public class PlayerController : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
+
+    void Interact()
+    {
+        if (groundedPlayer && inputManager.GetPlayerInteract())
+        {
+            Debug.Log("Interacted");
+        }
+    }
+
+
 
 
 }

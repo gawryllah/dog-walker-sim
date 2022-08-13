@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00075febe16ac1f4f8636f4c2bb94325, type: 3}
   m_Name: DogSO 3
   m_EditorClassIdentifier: 
-  dogName: Cookie
-  agressivness: 74.248505
-  listningToLeader: 23.601675
+  dogName: Baxter
+  agressivness: 45.13238
+  listningToLeader: 4.458511
   sympathyForPlayer: 0
+  triggeringRange: 34.913242

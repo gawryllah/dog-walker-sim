@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00075febe16ac1f4f8636f4c2bb94325, type: 3}
   m_Name: DogSO 1
   m_EditorClassIdentifier: 
-  dogName: Harley
-  agressivness: 5.266559
-  listningToLeader: 23.21862
+  dogName: Benny
+  agressivness: 89.17284
+  listningToLeader: 12.649846
   sympathyForPlayer: 0
+  triggeringRange: 17.450932

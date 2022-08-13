@@ -29,6 +29,8 @@ public class InputManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        DontDestroyOnLoad(instance);
     }
 
     private void OnEnable()
@@ -54,6 +56,11 @@ public class InputManager : MonoBehaviour
     public bool PlayerJumpedThisFrame()
     {
         return playerControls.PlayerDefault.Jump.triggered;
+    }
+
+    public bool GetPlayerInteract()
+    {
+        return playerControls.PlayerDefault.Interact.triggered;
     }
 
 
