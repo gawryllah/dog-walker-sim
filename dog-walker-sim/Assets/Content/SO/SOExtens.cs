@@ -52,7 +52,11 @@ public class SOExtens : ScriptableObject
                 Debug.Log($"{ (clientExtens.Count > dogExtens.Count ? "Not enough dogs" : "Not enough clients")}");
             }
 
+          
             initialized = true;
+
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssets();
         }
   
     }

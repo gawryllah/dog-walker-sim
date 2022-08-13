@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DogSO", menuName = "ScriptableObjects/DogSO")]
@@ -15,6 +16,8 @@ public class DogSO : ScriptableObject
         this.agressivness = agressivness;
         this.listningToLeader = listningToLeader;
         this.sympathyForPlayer = sympathyForPlayer;
+
+        EditorUtility.SetDirty(this);
     }
 
     public string getDogName()

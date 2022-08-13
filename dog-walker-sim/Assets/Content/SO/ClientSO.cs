@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 
@@ -13,6 +14,8 @@ public class ClientSO : ScriptableObject
         this.firstName = firstName;
         this.surname = surname;
         this.address = address;
+
+        EditorUtility.SetDirty(this);
     }
 
     public string getClientInfo()

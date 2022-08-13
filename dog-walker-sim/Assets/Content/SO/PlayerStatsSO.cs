@@ -7,9 +7,5 @@ public class PlayerStatsSO : ScriptableObject
     public int money = 0;
 
 
-    private void OnValidate()
-    {
-        Debug.Log($"At {this}, rep: {reputation}, money: {money}");
-    }
 
 }

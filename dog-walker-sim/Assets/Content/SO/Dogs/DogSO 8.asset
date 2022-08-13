@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00075febe16ac1f4f8636f4c2bb94325, type: 3}
   m_Name: DogSO 8
   m_EditorClassIdentifier: 
-  dogName: 
-  agressivness: 0
-  listningToLeader: 0
+  dogName: Lilly
+  agressivness: 33.25897
+  listningToLeader: 15.498936
   sympathyForPlayer: 0
