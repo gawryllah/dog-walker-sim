@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492fb482623408c4ea00f9a160521e35, type: 3}
   m_Name: ClientSO 2
   m_EditorClassIdentifier: 
-  firstName: Alphonse
-  surname: Bryant
-  address: hhrvsycqvo
+  firstName: Fronie
+  surname: Harmon
+  address: qkvhsbsrpr
   canAssignTask: 1

@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
+using Random = UnityEngine.Random;
 
-public class TaskManager : MonoBehaviour
+[Obsolete("Not used any more", true)]
+public class TaskManagerSO : MonoBehaviour
 {
     public SOExtens sOExtens;
     public PlayerStatsSO playerStats;
 
-    private static TaskManager instance;
+    private static TaskManagerSO instance;
 
     [SerializeField] private List<TaskSO> tasksList = new List<TaskSO>();
 
-    public static TaskManager Instance
+    public static TaskManagerSO Instance
     {
         get
         {

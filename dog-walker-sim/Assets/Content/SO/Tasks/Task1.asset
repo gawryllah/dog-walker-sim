@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 492fb482623408c4ea00f9a160521e35, type: 3}
-  m_Name: ClientSO 6
+  m_Script: {fileID: 11500000, guid: e3e124cbdac140a4f8ccba47adf3b2fd, type: 3}
+  m_Name: Task1
   m_EditorClassIdentifier: 
-  firstName: Warner
-  surname: Prince
-  address: kujuhdmdxr
-  canAssignTask: 1
+  client: {fileID: 11400000, guid: c056fcc1f37bc0b4ca4660f2c9109dbf, type: 2}
+  dog: {fileID: 11400000, guid: 3f92f2cd469a6e4419d933c2cafc0753, type: 2}
+  address: qkvhsbsrpr
+  price: 83
