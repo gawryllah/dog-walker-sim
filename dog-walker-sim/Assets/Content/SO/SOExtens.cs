@@ -5,12 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ClientExtensSO", menuName = "ScriptableObjects/ClientExtensSO")]
 public class SOExtens : ScriptableObject
 {
-    public List<ClientSO> clientExtens = new List<ClientSO>();
-    public List<DogSO> dogExtens = new List<DogSO>();
+    [SerializeField] private List<ClientSO> clientExtens = new List<ClientSO>();
+    [SerializeField] private List<DogSO> dogExtens = new List<DogSO>();
 
     [SerializeField] private Dictionary<ClientSO, DogSO> ownerDogRelation = new Dictionary<ClientSO, DogSO>();
 
     [SerializeField] private bool initialized = false;
+
 
 
     private void OnEnable()
@@ -40,6 +41,7 @@ public class SOExtens : ScriptableObject
 
             if (clientExtens.Count == dogExtens.Count)
             {
+                Debug.Log($"CE Length: {clientExtens.Count}, DE Length: {dogExtens.Count}");
                 for (int i = 0; i < clientExtens.Count; i++)
                 {
                     ownerDogRelation.Add(clientExtens[i], dogExtens[i]);
@@ -76,14 +78,28 @@ public class SOExtens : ScriptableObject
         return address;
     }
 
+
+
     public Dictionary<ClientSO, DogSO> getDictonaryOwnerDogRelation()
     {
         return ownerDogRelation;
     }
 
+    public DogSO getDogOfOwner(ClientSO client)
+    {
+        DogSO dog = ownerDogRelation[client];
+
+        return dog;
+    }
+
     public ClientSO getClinet(int index)
     {
         return clientExtens[index];
+    }
+
+    public List<ClientSO> getClientExtens()
+    {
+        return clientExtens;
     }
 
 

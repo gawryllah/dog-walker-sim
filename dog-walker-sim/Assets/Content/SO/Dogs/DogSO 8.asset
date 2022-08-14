@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00075febe16ac1f4f8636f4c2bb94325, type: 3}
   m_Name: DogSO 8
   m_EditorClassIdentifier: 
-  dogName: Simba
-  agressivness: 93.46292
-  listningToLeader: 76.40302
+  dogName: Gigi
+  agressivness: 2.7086496
+  listningToLeader: 31.35386
   sympathyForPlayer: 0
-  triggeringRange: 7.381505
+  triggeringRange: 47.45636

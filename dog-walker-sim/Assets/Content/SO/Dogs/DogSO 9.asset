@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00075febe16ac1f4f8636f4c2bb94325, type: 3}
   m_Name: DogSO 9
   m_EditorClassIdentifier: 
-  dogName: Teddy
-  agressivness: 33.23185
-  listningToLeader: 58.27052
+  dogName: Loki
+  agressivness: 73.05008
+  listningToLeader: 39.710743
   sympathyForPlayer: 0
-  triggeringRange: 15.0853
+  triggeringRange: 45.62369

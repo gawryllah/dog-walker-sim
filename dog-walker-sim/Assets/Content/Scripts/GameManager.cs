@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool GameOn { get; set; } = false;
+
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -29,7 +32,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GameOn = true;
     }
 
     // Update is called once per frame

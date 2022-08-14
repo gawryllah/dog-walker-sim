@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79c107ede2491e489e46eaab4181c33, type: 3}
   m_Name: PlayerStatsSO
   m_EditorClassIdentifier: 
-  reputation: 55
+  reputation: 5
   money: 5
