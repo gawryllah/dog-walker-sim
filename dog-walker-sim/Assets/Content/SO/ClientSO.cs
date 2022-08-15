@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,48 +5,49 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ClientSO", menuName = "ScriptableObjects/ClientSO")]
 public class ClientSO : ScriptableObject
 {
-    [SerializeField] private string firstName, surname, address;
 
-    [SerializeField] private bool canAssignTask;
 
-    //[SerializeField] GameObject addressGO; to add later, address will be represented by emptyGO in certain place
+    private static int Ids = 0;
 
-   
+    private int id;
 
-    public void initClient(string firstName, string surname, string address)
+    public int ID
+    {
+        get
+        {
+            return id;
+        }
+    }
+
+    [SerializeField] private string firstName, surname;
+    public string FirstName { get { return firstName; } }
+    public string Surname { get { return surname; } }
+
+    [SerializeField] GameObject addressGO;
+    public GameObject Address { get { return addressGO; } }
+
+    [SerializeField] private DogSO dogSO;
+    public DogSO DogSO { get { return dogSO; } set { dogSO = value; } }
+
+    [SerializeField] private float priceFactor;
+    public float PriceFactor { get { return priceFactor; } }
+
+
+
+    public void initClient(string firstName, string surname, GameObject address)
     {
         this.firstName = firstName;
         this.surname = surname;
-        this.address = address;
-        canAssignTask = true;
+        this.addressGO = address;
+        id = Ids;
+
+        priceFactor = Random.Range(0.25f, 1f);
 
         EditorUtility.SetDirty(this);
-    }
 
-    public string getAddress()
-    {
-        return address;
-    }
+        Debug.Log($"At {this}, {name} {Ids}");
 
-    public string getClientInfo()
-    {
-        return $"fN: {firstName}, sN: {surname}, ad: {address}";
-    }
-
-    public bool getCanAssignTask()
-    {
-        return canAssignTask;
-    }
-
-    public void TaskAssigned()
-    {
-        canAssignTask = false;
-       
-    }
-
-    public void setAssignTask(bool status)
-    {
-        canAssignTask = status;
+        Ids++;
     }
 
 }

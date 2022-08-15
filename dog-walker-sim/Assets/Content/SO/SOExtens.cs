@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "ClientExtensSO", menuName = "ScriptableObjects/ClientExtensSO")]
 public class SOExtens : ScriptableObject
@@ -8,15 +10,24 @@ public class SOExtens : ScriptableObject
     [SerializeField] private List<ClientSO> clientExtens = new List<ClientSO>();
     [SerializeField] private List<DogSO> dogExtens = new List<DogSO>();
 
-    [SerializeField] private Dictionary<ClientSO, DogSO> ownerDogRelation = new Dictionary<ClientSO, DogSO>();
+    [SerializeField] private Dictionary<int, DogSO> ownerDogRelation = new Dictionary<int, DogSO>();
+
+
+
+    [SerializeField] private GameObject addresses;
+    [SerializeField] private GameObject tempAddress;
+
+    [SerializeField] static int addressGoIndex = 0;
 
     [SerializeField] private bool initialized = false;
+
+    public List<ClientSO> ClientsSO { get { return clientExtens; } }
+    public List<DogSO> DogsSO { get { return dogExtens; } }
 
 
 
     private void OnEnable()
     {
-
         Initialize();
     }
 
@@ -28,7 +39,8 @@ public class SOExtens : ScriptableObject
 
             foreach (ClientSO client in clientExtens)
             {
-                client.initClient((names[Random.Range(0, names.Length - 1)]), (surnames[Random.Range(0, surnames.Length - 1)]), genAdress());
+                client.initClient((names[Random.Range(0, names.Length - 1)]), (surnames[Random.Range(0, surnames.Length - 1)]), assignNextAddress());
+                addressGoIndex++;
 
 
                 //Debug.Log($"At {this}, Client: {client.getClientInfo()} ");
@@ -44,7 +56,8 @@ public class SOExtens : ScriptableObject
                 Debug.Log($"CE Length: {clientExtens.Count}, DE Length: {dogExtens.Count}");
                 for (int i = 0; i < clientExtens.Count; i++)
                 {
-                    ownerDogRelation.Add(clientExtens[i], dogExtens[i]);
+                    ownerDogRelation.Add(clientExtens[i].ID, dogExtens[i]);
+                    clientExtens[i].DogSO = dogExtens[i];
                 }
 
             }
@@ -64,32 +77,75 @@ public class SOExtens : ScriptableObject
 
 
 
-
-
-    string genAdress() //temporary solution
+    GameObject assignNextAddress()
     {
-        string address = "";
-        for (int i = 0; i < 10; i++)
-        {
-            address += (char)Random.Range('a', 'z');
-
-        }
-
-        return address;
+        return addresses.transform.childCount - 1 > addressGoIndex ? addresses.transform.GetChild(addressGoIndex).gameObject : tempAddress;
     }
 
 
 
-    public Dictionary<ClientSO, DogSO> getDictonaryOwnerDogRelation()
+    public Dictionary<int, DogSO> getDictonaryOwnerDogRelation()
     {
         return ownerDogRelation;
     }
 
+    /*
     public DogSO getDogOfOwner(ClientSO client)
     {
-        DogSO dog = ownerDogRelation[client];
+        if (ownerDogRelation.ContainsKey(client.ID))
+        {
+            DogSO dog = ownerDogRelation[client.ID];
 
-        return dog;
+            return dog;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+    */
+
+    public DogSO getDogOfOwner(Client client)
+    {
+        if (ownerDogRelation.ContainsKey(client.ID))
+        {
+            DogSO dog = ownerDogRelation[client.ID];
+
+            return dog;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
+    public DogSO getDogOfOwner(int id)
+    {
+        if (ownerDogRelation.ContainsKey(id))
+        {
+            DogSO dog = ownerDogRelation[id];
+
+            return dog;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
+    public int getIdOfDog(Client client)
+    {
+        if (ownerDogRelation.ContainsKey(client.ID))
+        {
+            return ownerDogRelation[client.ID].ID;
+        }
+        else
+        {
+            throw new Exception($"No dog found for ID: {client.ID}");
+        }
     }
 
     public ClientSO getClinet(int index)
@@ -116,6 +172,10 @@ public class SOExtens : ScriptableObject
     {
         "Bella", "Lucy", "Daisy", "Molly", "Lola", "Sophie", "Sadie", "Maggie", "Chloe", "Bailey", "Roxy", "Zoey", "Lily", "Luna", "Coco", "Stella", "Gracie", "Abby", "Penny", "Zoe", "Ginger", "Ruby", "Rosie", "Lilly", "Ellie", "Mia", "Sasha", "Lulu", "Pepper", "Nala", "Lexi", "Lady", "Emma", "Riley", "Dixie", "Annie", "Maddie", "Piper", "Princess", "Izzy", "Maya", "Olive", "Cookie", "Roxie", "Angel", "Belle", "Layla", "Missy", "Cali", "Honey", "Millie", "Harley", "Marley", "Holly", "Kona", "Shelby", "Jasmine", "Ella", "Charlie", "Minnie", "Willow", "Phoebe", "Callie", "Scout", "Katie", "Dakota", "Sugar", "Sandy", "Josie", "Macy", "Trixie", "Winnie", "Peanut", "Mimi", "Hazel", "Mocha", "Cleo", "Hannah", "Athena", "Lacey", "Sassy", "Lucky", "Bonnie", "Allie", "Brandy", "Sydney", "Casey", "Gigi", "Baby", "Madison", "Heidi", "Sally", "Shadow", "Cocoa", "Pebbles", "Misty", "Nikki", "Lexie", "Grace", "Sierra", "Max", "Buddy", "Charlie", "Jack", "Cooper", "Rocky", "Toby", "Tucker", "Jake", "Bear", "Duke", "Teddy", "Oliver", "Riley", "Bailey", "Bentley", "Milo", "Buster", "Cody", "Dexter", "Winston", "Murphy", "Leo", "Lucky", "Oscar", "Louie", "Zeus", "Henry", "Sam", "Harley", "Baxter", "Gus", "Sammy", "Jackson", "Bruno", "Diesel", "Jax", "Gizmo", "Bandit", "Rusty", "Marley", "Jasper", "Brody", "Roscoe", "Hank", "Otis", "Bo", "Joey", "Beau", "Ollie", "Tank", "Shadow", "Peanut", "Hunter", "Scout", "Blue", "Rocco", "Simba", "Tyson", "Ziggy", "Boomer", "Romeo", "Apollo", "Ace", "Luke", "Rex", "Finn", "Chance", "Rudy", "Loki", "Moose", "George", "Samson", "Coco", "Benny", "Thor", "Rufus", "Prince", "Chester", "Brutus", "Scooter", "Chico", "Spike", "Gunner", "Sparky", "Mickey", "Kobe", "Chase", "Oreo", "Frankie", "Mac", "Benji", "Bubba", "Champ", "Brady", "Elvis", "Copper", "Cash", "Archie", "Walter"
     };
+
+    public string[] NamesArr { get { return names; } }
+    public string[] SurnamesArr { get { return surnames; } }
+    public string[] DogNamesArr { get { return dognames; } }
 
 
 

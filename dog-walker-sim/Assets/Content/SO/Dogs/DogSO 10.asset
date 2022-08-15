@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00075febe16ac1f4f8636f4c2bb94325, type: 3}
   m_Name: DogSO 10
   m_EditorClassIdentifier: 
-  dogName: Mac
-  agressivness: 63.771797
-  listningToLeader: 21.641708
+  dogName: Hannah
+  agressivness: 87.666824
+  listeningToLeader: 91.637695
   sympathyForPlayer: 0
-  triggeringRange: 40.010906
+  triggeringRange: 29.46249

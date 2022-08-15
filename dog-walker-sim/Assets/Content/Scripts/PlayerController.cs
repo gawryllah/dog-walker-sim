@@ -3,14 +3,12 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    public PlayerControlsSO playerControls;
+
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private Transform cameraTransform;
-
-    [SerializeField] private float playerSpeed = 2.0f;
-    [SerializeField] private float jumpHeight = 1.0f;
-    [SerializeField] private float gravityValue = -9.81f;
 
     private InputManager inputManager;
 
@@ -42,15 +40,15 @@ public class PlayerController : MonoBehaviour
         move = cameraTransform.forward * move.z + cameraTransform.right * move.x;
         move.y = 0;
 
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        controller.Move(move * Time.deltaTime * playerControls.PlayerSpeed);
 
         // Changes the height position of the player..
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            playerVelocity.y += Mathf.Sqrt(playerControls.JumpHeight * -3.0f * playerControls.GravityValue);
         }
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
+        playerVelocity.y += playerControls.GravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
 

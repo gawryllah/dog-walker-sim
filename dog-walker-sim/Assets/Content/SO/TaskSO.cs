@@ -1,3 +1,4 @@
+/*
 using UnityEditor;
 using UnityEngine;
 
@@ -6,8 +7,8 @@ public class TaskSO : ScriptableObject
     [SerializeField] private ClientSO client;
     [SerializeField] private DogSO dog;
     //[SerializeField] private GameObject address;
-    [SerializeField] private string address;
-    [SerializeField] [Range(20, 150)] private int price;
+    [SerializeField] private GameObject address;
+    [SerializeField] private int price;
 
     private static int id = 0;
 
@@ -15,7 +16,7 @@ public class TaskSO : ScriptableObject
     {
         this.client = client;
         this.dog = dog;
-        address = client.getAddress();
+        address = client.Address;
         this.price = money;
 
         AssetDatabase.CreateAsset(this, $"Assets/Content/SO/Tasks/Task{id}.asset");
@@ -25,9 +26,7 @@ public class TaskSO : ScriptableObject
         AssetDatabase.SaveAssets();
     }
 
-    public string getTaskInfo()
-    {
-        return $"At {this}, Client: {client.getClientInfo()}, Dog: {dog.getDogName()}, ad: {address}, price: {price}";
-    }
+
 }
+*/
 

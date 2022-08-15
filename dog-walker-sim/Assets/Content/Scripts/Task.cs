@@ -1,0 +1,18 @@
+using UnityEngine;
+
+public class Task
+{
+
+    [SerializeField] private Client client; public Client TaskClient { get { return client; } }
+    [SerializeField] private Dog dog; public Dog TaskDog { get { return dog; } }
+    [SerializeField] private GameObject address; public GameObject TaskAddress { get { return address; } }
+    [SerializeField] private float price; public float TaskPrice { get { return price; } }
+
+    public Task(Client client, Dog dog, float price)
+    {
+        this.client = client;
+        this.dog = dog;
+        address = client.Address;
+        this.price = price;
+    }
+}
