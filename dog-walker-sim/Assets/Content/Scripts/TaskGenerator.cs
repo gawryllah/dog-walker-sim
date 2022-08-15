@@ -5,7 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using TMPro;
 
-public class TaskManager : MonoBehaviour
+public class TaskGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject playersDogPlace;
     [SerializeField] private SOExtens soExtens;
@@ -23,9 +23,9 @@ public class TaskManager : MonoBehaviour
     public GameObject texts; //for tests
     public TMP_Text textPrefab; //for tests
 
-    private static TaskManager instance;
+    private static TaskGenerator instance;
 
-    public static TaskManager Instance
+    public static TaskGenerator Instance
     {
         get
         {
