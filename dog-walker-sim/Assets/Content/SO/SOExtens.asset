@@ -36,8 +36,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4955e087c7213984199146324827ac50, type: 2}
   - {fileID: 11400000, guid: f643da77c686c1a419eceda0779ee664, type: 2}
   - {fileID: 11400000, guid: 0c8c8b6cbc6641a409aa2e0f24eca12d, type: 2}
-  addresses: {fileID: 5891140319974386989, guid: d52be44089f4aae48b860717c8a992df,
+  addressesPrefabs: {fileID: 5891140319974386989, guid: d52be44089f4aae48b860717c8a992df,
     type: 3}
-  tempAddress: {fileID: 5434237144418579482, guid: 73ec6ffd16d952c4d9ac77a7324d0e69,
+  tempAddressBlock: {fileID: 5434237144418579482, guid: 73ec6ffd16d952c4d9ac77a7324d0e69,
     type: 3}
+  dogPrefab: {fileID: 0}
   initialized: 1

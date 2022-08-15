@@ -13,9 +13,9 @@ public class SOExtens : ScriptableObject
     [SerializeField] private Dictionary<int, DogSO> ownerDogRelation = new Dictionary<int, DogSO>();
 
 
-
-    [SerializeField] private GameObject addresses;
-    [SerializeField] private GameObject tempAddress;
+    [SerializeField] private GameObject addressesPrefabs; //static addresses
+    [SerializeField] private GameObject tempAddressBlock;
+    [SerializeField] private GameObject dogPrefab; //static models of dogs 
 
     [SerializeField] static int addressGoIndex = 0;
 
@@ -35,6 +35,7 @@ public class SOExtens : ScriptableObject
     {
         if (!initialized)
         {
+            //Debug.Log($"dogs count {dogPrefab.transform.childCount}");
 
 
             foreach (ClientSO client in clientExtens)
@@ -48,6 +49,7 @@ public class SOExtens : ScriptableObject
 
             foreach (DogSO dog in dogExtens)
             {
+             
                 dog.initDog(dognames[Random.Range(0, dognames.Length - 1)], Random.Range(0f, 100f), Random.Range(0f, 100f), 0, Random.Range(0f, 50f));
             }
 
@@ -79,7 +81,7 @@ public class SOExtens : ScriptableObject
 
     GameObject assignNextAddress()
     {
-        return addresses.transform.childCount - 1 > addressGoIndex ? addresses.transform.GetChild(addressGoIndex).gameObject : tempAddress;
+        return addressesPrefabs.transform.childCount - 1 > addressGoIndex ? addressesPrefabs.transform.GetChild(addressGoIndex).gameObject : tempAddressBlock;
     }
 
 

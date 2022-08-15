@@ -22,13 +22,28 @@ public class DogSO : ScriptableObject
     [SerializeField] [Range(0f, 100f)] private float listeningToLeader; //responsiveness for leader commands (mostly for player)
     [SerializeField] [Range(0f, 100f)] private float sympathyForPlayer; // higher score means more likly dog will follow player's commands
     [SerializeField] [Range(0f, 50f)] private float triggeringRange;
+    [SerializeField] private GameObject dogGO;
 
     public string DogName { get { return dogName; } }
     public float DogAgressivness { get { return agressivness; } }
     public float DogListeningToLeader { get { return listeningToLeader; } }
     public float DogSympathyForPlayer { get { return sympathyForPlayer; } }
     public float DogTriggeringRange { get { return triggeringRange; } }
+    public GameObject DogGO { get { return dogGO; } }
 
+
+    public void initDog(string dogName, float agressivness, float listningToLeader, float sympathyForPlayer, float triggeringRange, GameObject dogGO)
+    {
+        this.dogName = dogName;
+        this.agressivness = agressivness;
+        this.listeningToLeader = listningToLeader;
+        this.sympathyForPlayer = sympathyForPlayer;
+        this.triggeringRange = triggeringRange;
+        id = Ids;
+        this.dogGO = dogGO;
+
+        EditorUtility.SetDirty(this);
+    }
 
     public void initDog(string dogName, float agressivness, float listningToLeader, float sympathyForPlayer, float triggeringRange)
     {

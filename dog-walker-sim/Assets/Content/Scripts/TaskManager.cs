@@ -7,18 +7,21 @@ using TMPro;
 
 public class TaskManager : MonoBehaviour
 {
+    [SerializeField] private GameObject playersDogPlace;
     [SerializeField] private SOExtens soExtens;
 
     [SerializeField] [Range(0, 100)] private int lowerPriceRange = 20; public int LowerPriceRange { get { return lowerPriceRange; } }
     [SerializeField] [Range(0, 100)] private int higerPriceRange = 100; public int HigherPriceRange { get { return higerPriceRange; } }
+
+    [SerializeField] private GameObject block; //for now probably it will be common address for dynamically generated clients
 
     //[SerializeField] private List<Task> tasksList = new List<Task>();
     public List<Task> tasksList = new List<Task>();
     [SerializeField] private List<Client> clientsList = new List<Client>();
     [SerializeField] private List<Dog> dogsList = new List<Dog>();
 
-    public GameObject texts;
-    public TMP_Text textPrefab;
+    public GameObject texts; //for tests
+    public TMP_Text textPrefab; //for tests
 
     private static TaskManager instance;
 
@@ -59,19 +62,25 @@ public class TaskManager : MonoBehaviour
 
         while (GameManager.Instance.GameOn)
         {
-            //yield return new WaitForSeconds(Random.Range(15f, 30f));
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(Random.Range(15f, 30f));
+            //yield return new WaitForSeconds(5f);
 
             var client = clientsList[Random.Range(0, clientsList.Count - 1)];
 
             if (!client.IsTaskAssigned)
             {
+          
+
                 var task = new Task(client, client.Dog, (Random.Range(lowerPriceRange, higerPriceRange) * client.PriceFactor));
                 client.IsTaskAssigned = true;
 
                 tasksList.Add(task);
 
-                Debug.Log($"Task created for: {client.ID} {client.FirstName} {client.Surname}");
+                GameObject dogInstance = Instantiate(task.TaskDog.DogGO, playersDogPlace.transform.position, Quaternion.identity);
+                dogInstance.GetComponent<DogUIRenderer>().setName($"{task.TaskDog.DogName}");
+                dogInstance.transform.SetParent(playersDogPlace.transform);
+
+                Debug.Log($"Task {task.ID} created for: {client.ID} {client.FirstName} {client.Surname}");
 
                 DrawTaskOnUI();
 
@@ -106,7 +115,7 @@ public class TaskManager : MonoBehaviour
     {
         var text = Instantiate(textPrefab);
         text.transform.SetParent(texts.transform);
-        text.text = $"Task: Client: {tasksList[tasksList.Count - 1].TaskClient.FirstName} {tasksList[tasksList.Count - 1].TaskClient.Surname}, dog: {tasksList[tasksList.Count - 1].TaskDog.DogName} ";
+        text.text = $"Task {tasksList[tasksList.Count - 1].ID}: Client: {tasksList[tasksList.Count - 1].TaskClient.FirstName} {tasksList[tasksList.Count - 1].TaskClient.Surname}, dog: {tasksList[tasksList.Count - 1].TaskDog.DogName} ";
         text.enabled = true;
     }
 

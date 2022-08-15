@@ -18,9 +18,9 @@ public class Client
     [SerializeField] private Dog dog;
     public Dog Dog { get { return dog; } set { dog = value; } }
 
-
     [SerializeField] private float priceFactor;
     public float PriceFactor { get { return priceFactor; } }
+
 
     public Client(int id, string firstName, string surname, GameObject address, Dog dog)
     {
@@ -46,7 +46,7 @@ public class Client
 
     private Dog CreateDog(DogSO dogSO)
     {
-        var dog = new Dog(dogSO.ID, dogSO.DogName, dogSO.DogAgressivness, dogSO.DogListeningToLeader, dogSO.DogSympathyForPlayer, dogSO.DogTriggeringRange);
+        var dog = new Dog(dogSO);
 
         return dog;
     }
