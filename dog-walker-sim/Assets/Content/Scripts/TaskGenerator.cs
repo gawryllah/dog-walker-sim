@@ -92,7 +92,6 @@ public class TaskGenerator : MonoBehaviour
                 Debug.Log($"Task {task.ID} created for: {client.ID} {client.FirstName} {client.Surname}");
 
                 GameManager.Instance.CreateUITask();
-                DrawTaskOnUI();
 
                 StartCoroutine(StartClientCooldown(client));
             }
