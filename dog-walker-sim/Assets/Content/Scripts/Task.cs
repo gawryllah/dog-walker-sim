@@ -5,7 +5,7 @@ public class Task
     private static int Ids = 0;
     private int id;
     public int ID { get { return id; } }
-    
+
 
     [SerializeField] private Client client; public Client TaskClient { get { return client; } }
     [SerializeField] private Dog dog; public Dog TaskDog { get { return dog; } }

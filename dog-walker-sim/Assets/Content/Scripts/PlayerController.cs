@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     private InputManager inputManager;
 
+    //private bool isLogOpened;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -24,7 +26,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
-        Interact();
+        Interactions();
     }
 
     void Move()
@@ -52,13 +54,37 @@ public class PlayerController : MonoBehaviour
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
+    void Interactions()
+    {
+        Interact();
+        LogHandler();
+
+    }
+
     void Interact()
     {
-        if (groundedPlayer && inputManager.GetPlayerInteract())
+        if (groundedPlayer && inputManager.GetPlayerInteracted())
         {
             Debug.Log("Interacted");
         }
     }
+
+    void LogHandler()
+    {
+        if (inputManager.GetPlayerLogClicked())
+        {
+            if (!UIManager.Instance.LogOpened)
+            {
+                GameManager.Instance.OpenLog();
+            }
+            else
+            {
+                GameManager.Instance.CloseLog();
+            }
+        }
+    }
+
+
 
 
 

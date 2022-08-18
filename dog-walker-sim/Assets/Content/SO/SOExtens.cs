@@ -49,7 +49,7 @@ public class SOExtens : ScriptableObject
 
             foreach (DogSO dog in dogExtens)
             {
-             
+
                 dog.initDog(dognames[Random.Range(0, dognames.Length - 1)], Random.Range(0f, 100f), Random.Range(0f, 100f), 0, Random.Range(0f, 50f));
             }
 

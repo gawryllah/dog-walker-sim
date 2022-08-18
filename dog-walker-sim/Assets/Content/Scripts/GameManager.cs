@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IUIHandler
 {
     private static GameManager instance;
 
@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(instance);
     }
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,5 +41,25 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void OpenLog()
+    {
+        Debug.Log($"Opened log");
+        Time.timeScale = 0f;
+        UIManager.Instance.OpenLog();
+
+    }
+
+    public void CloseLog()
+    {
+        Debug.Log($"Closed log");
+        Time.timeScale = 1f;
+        UIManager.Instance.CloseLog();
+    }
+
+    public void CreateUITask()
+    {
+        throw new System.NotImplementedException();
     }
 }

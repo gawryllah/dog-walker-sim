@@ -1,12 +1,11 @@
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Dog
 {
     [SerializeField] private int id;
     public int ID { get { return id; } } //set { id = value; } }
 
-    [SerializeField] private string dogName; 
+    [SerializeField] private string dogName;
     [SerializeField] [Range(0f, 100f)] private float agressivness; //to other dogs
     [SerializeField] [Range(0f, 100f)] private float listeningToLeader; //responsiveness for leader commands (mostly for player)
     [SerializeField] [Range(0f, 100f)] private float sympathyForPlayer; // higher score means more likly dog will follow player's commands

@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class DogUIRenderer : MonoBehaviour
 {
@@ -10,13 +8,13 @@ public class DogUIRenderer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        dogsNameText.transform.rotation = Quaternion.LookRotation(dogsNameText.transform.position - Camera.main.transform.position);
+        dogsNameText.transform.rotation = Camera.main.transform.rotation;
     }
 
     public void setName(string name)

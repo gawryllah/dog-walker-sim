@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using TMPro;
 
 public class TaskGenerator : MonoBehaviour
 {
@@ -19,6 +19,8 @@ public class TaskGenerator : MonoBehaviour
     public List<Task> tasksList = new List<Task>();
     [SerializeField] private List<Client> clientsList = new List<Client>();
     [SerializeField] private List<Dog> dogsList = new List<Dog>();
+
+    [SerializeField] private List<GameObject> instansiatedDogs = new List<GameObject>();
 
     public GameObject texts; //for tests
     public TMP_Text textPrefab; //for tests
@@ -69,7 +71,15 @@ public class TaskGenerator : MonoBehaviour
 
             if (!client.IsTaskAssigned)
             {
-          
+
+                if (tasksList.Count != 0)
+                {
+                    tasksList.Clear();
+                    foreach (GameObject go in instansiatedDogs)
+                    {
+                        Destroy(go);
+                    }
+                }
 
                 var task = new Task(client, client.Dog, (Random.Range(lowerPriceRange, higerPriceRange) * client.PriceFactor));
                 client.IsTaskAssigned = true;
@@ -79,6 +89,8 @@ public class TaskGenerator : MonoBehaviour
                 GameObject dogInstance = Instantiate(task.TaskDog.DogGO, playersDogPlace.transform.position, Quaternion.identity);
                 dogInstance.GetComponent<DogUIRenderer>().setName($"{task.TaskDog.DogName}");
                 dogInstance.transform.SetParent(playersDogPlace.transform);
+
+                instansiatedDogs.Add(dogInstance);
 
                 Debug.Log($"Task {task.ID} created for: {client.ID} {client.FirstName} {client.Surname}");
 
@@ -93,7 +105,7 @@ public class TaskGenerator : MonoBehaviour
     {
         //yield return new WaitForSecondsRealtime(Random.Range(600f, 1200f));
 
-        yield return new WaitForSecondsRealtime(25f);
+        yield return new WaitForSeconds(25f);
         if (client.IsTaskAssigned)
             client.IsTaskAssigned = false;
 

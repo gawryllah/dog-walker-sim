@@ -58,9 +58,14 @@ public class InputManager : MonoBehaviour
         return playerControls.PlayerDefault.Jump.triggered;
     }
 
-    public bool GetPlayerInteract()
+    public bool GetPlayerInteracted()
     {
         return playerControls.PlayerDefault.Interact.triggered;
+    }
+
+    public bool GetPlayerLogClicked()
+    {
+        return playerControls.PlayerDefault.Log.triggered;
     }
 
 

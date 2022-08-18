@@ -62,6 +62,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Log"",
+                    ""type"": ""Button"",
+                    ""id"": ""f1c3d03e-3fec-4f6a-8a8a-8eefdf0aa804"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8dd35b8-f571-4a78-a769-3c0d6d31df4f"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Log"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -181,6 +201,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerDefault_Jump = m_PlayerDefault.FindAction("Jump", throwIfNotFound: true);
         m_PlayerDefault_Look = m_PlayerDefault.FindAction("Look", throwIfNotFound: true);
         m_PlayerDefault_Interact = m_PlayerDefault.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerDefault_Log = m_PlayerDefault.FindAction("Log", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -244,6 +265,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerDefault_Jump;
     private readonly InputAction m_PlayerDefault_Look;
     private readonly InputAction m_PlayerDefault_Interact;
+    private readonly InputAction m_PlayerDefault_Log;
     public struct PlayerDefaultActions
     {
         private @PlayerControls m_Wrapper;
@@ -252,6 +274,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerDefault_Jump;
         public InputAction @Look => m_Wrapper.m_PlayerDefault_Look;
         public InputAction @Interact => m_Wrapper.m_PlayerDefault_Interact;
+        public InputAction @Log => m_Wrapper.m_PlayerDefault_Log;
         public InputActionMap Get() { return m_Wrapper.m_PlayerDefault; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -273,6 +296,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerDefaultActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerDefaultActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerDefaultActionsCallbackInterface.OnInteract;
+                @Log.started -= m_Wrapper.m_PlayerDefaultActionsCallbackInterface.OnLog;
+                @Log.performed -= m_Wrapper.m_PlayerDefaultActionsCallbackInterface.OnLog;
+                @Log.canceled -= m_Wrapper.m_PlayerDefaultActionsCallbackInterface.OnLog;
             }
             m_Wrapper.m_PlayerDefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -289,6 +315,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Log.started += instance.OnLog;
+                @Log.performed += instance.OnLog;
+                @Log.canceled += instance.OnLog;
             }
         }
     }
@@ -308,5 +337,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnLog(InputAction.CallbackContext context);
     }
 }
