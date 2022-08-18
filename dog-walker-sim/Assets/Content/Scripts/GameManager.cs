@@ -60,6 +60,6 @@ public class GameManager : MonoBehaviour, IUIHandler
 
     public void CreateUITask()
     {
-        throw new System.NotImplementedException();
+        UIManager.Instance.CreateUITask();
     }
 }

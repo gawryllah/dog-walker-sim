@@ -16,14 +16,11 @@ public class TaskGenerator : MonoBehaviour
     [SerializeField] private GameObject block; //for now probably it will be common address for dynamically generated clients
 
     //[SerializeField] private List<Task> tasksList = new List<Task>();
-    public List<Task> tasksList = new List<Task>();
+    [SerializeField] private List<Task> tasksList = new List<Task>(); public List<Task> TasksList { get { return tasksList; } }
     [SerializeField] private List<Client> clientsList = new List<Client>();
     [SerializeField] private List<Dog> dogsList = new List<Dog>();
 
     [SerializeField] private List<GameObject> instansiatedDogs = new List<GameObject>();
-
-    public GameObject texts; //for tests
-    public TMP_Text textPrefab; //for tests
 
     private static TaskGenerator instance;
 
@@ -64,8 +61,8 @@ public class TaskGenerator : MonoBehaviour
 
         while (GameManager.Instance.GameOn)
         {
-            yield return new WaitForSeconds(Random.Range(15f, 30f));
-            //yield return new WaitForSeconds(5f);
+            //yield return new WaitForSeconds(Random.Range(15f, 30f));
+            yield return new WaitForSeconds(5f);
 
             var client = clientsList[Random.Range(0, clientsList.Count - 1)];
 
@@ -94,6 +91,7 @@ public class TaskGenerator : MonoBehaviour
 
                 Debug.Log($"Task {task.ID} created for: {client.ID} {client.FirstName} {client.Surname}");
 
+                GameManager.Instance.CreateUITask();
                 DrawTaskOnUI();
 
                 StartCoroutine(StartClientCooldown(client));
@@ -103,9 +101,11 @@ public class TaskGenerator : MonoBehaviour
 
     IEnumerator StartClientCooldown(Client client)
     {
-        //yield return new WaitForSecondsRealtime(Random.Range(600f, 1200f));
 
-        yield return new WaitForSeconds(25f);
+
+        //yield return new WaitForSecondsRealtime(Random.Range(600f, 1200f));
+         
+        yield return new WaitForSeconds(25f); //still thinking if i want to co
         if (client.IsTaskAssigned)
             client.IsTaskAssigned = false;
 
@@ -123,13 +123,6 @@ public class TaskGenerator : MonoBehaviour
         }
     }
 
-    void DrawTaskOnUI()
-    {
-        var text = Instantiate(textPrefab);
-        text.transform.SetParent(texts.transform);
-        text.text = $"Task {tasksList[tasksList.Count - 1].ID}: Client: {tasksList[tasksList.Count - 1].TaskClient.FirstName} {tasksList[tasksList.Count - 1].TaskClient.Surname}, dog: {tasksList[tasksList.Count - 1].TaskDog.DogName} ";
-        text.enabled = true;
-    }
 
     /*
     void InitDogsList()

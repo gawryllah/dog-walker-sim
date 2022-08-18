@@ -73,13 +73,13 @@ public class PlayerController : MonoBehaviour
     {
         if (inputManager.GetPlayerLogClicked())
         {
-            if (!UIManager.Instance.LogOpened)
+            if (UIManager.Instance.LogOpened)
             {
-                GameManager.Instance.OpenLog();
+                GameManager.Instance.CloseLog();
             }
             else
             {
-                GameManager.Instance.CloseLog();
+                GameManager.Instance.OpenLog();
             }
         }
     }
