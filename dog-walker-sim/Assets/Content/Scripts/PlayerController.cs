@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
         inputManager = InputManager.Instance;
         cameraTransform = Camera.main.transform;
 
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
     }
 
@@ -67,6 +69,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Interacted");
         }
+        
     }
 
     void LogHandler()
@@ -81,6 +84,21 @@ public class PlayerController : MonoBehaviour
             {
                 GameManager.Instance.OpenLog();
             }
+        }
+        ToggleCursorLock();
+    }
+
+    void ToggleCursorLock()
+    {
+        if (UIManager.Instance.LogOpened)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 

@@ -71,7 +71,7 @@ public class TaskGenerator : MonoBehaviour
 
                 if (tasksList.Count != 0)
                 {
-                    tasksList.Clear();
+                    //tasksList.Clear();
                     foreach (GameObject go in instansiatedDogs)
                     {
                         Destroy(go);

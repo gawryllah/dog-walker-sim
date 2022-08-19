@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour, IUIHandler
 {
@@ -47,6 +48,12 @@ public class UIManager : MonoBehaviour, IUIHandler
 
     private void TurnOffUI()
     {
+
+        //init (?)
+        canvasHandler.SetActive(true);
+        logHandler.SetActive(true);
+        //
+
         canvasHandler.SetActive(false);
         logHandler.SetActive(false);
     }
@@ -66,13 +73,19 @@ public class UIManager : MonoBehaviour, IUIHandler
     }
 
     public void CreateUITask()
-    {   
+    {
+        foreach (Transform child in listOfTasksGO.transform)
+        {
+            if (child.GetComponent<Image>() == null)
+                Destroy(child.gameObject);
+        }
+
         foreach (Task task in TaskGenerator.Instance.TasksList)
         {
             var taskUI = Instantiate(taskCompUI);
             taskUI.transform.SetParent(listOfTasksGO.transform);
             taskUI.GetComponentInChildren<TMP_Text>().text = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}, dog: {task.TaskDog.DogName}, where: {task.TaskAddress.transform.position}, money: {task.TaskPrice}";
-
+            //taskUI.GetComponent<RectTransform>().SetAsLastSibling();
         }
     }
 
