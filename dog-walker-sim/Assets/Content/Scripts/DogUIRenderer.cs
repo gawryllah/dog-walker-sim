@@ -5,6 +5,7 @@ public class DogUIRenderer : MonoBehaviour
 {
 
     public TMP_Text dogsNameText;
+    public GameObject textHolder;
     // Start is called before the first frame update
     void Start()
     {

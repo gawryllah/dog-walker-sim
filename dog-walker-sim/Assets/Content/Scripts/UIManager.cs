@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour, IUIHandler
 {
@@ -65,7 +66,7 @@ public class UIManager : MonoBehaviour, IUIHandler
     }
 
     public void CreateUITask()
-    {
+    {   
         foreach (Task task in TaskGenerator.Instance.TasksList)
         {
             var taskUI = Instantiate(taskCompUI);
@@ -75,5 +76,17 @@ public class UIManager : MonoBehaviour, IUIHandler
         }
     }
 
-   
+    /*
+    void clearChildrenOfListOfTasks(GameObject go)
+    {
+        foreach (Transform child in go.transform)
+        {
+            if(child.GetComponent<Image>() == null)
+                Destroy(child.gameObject);
+        }
+    }
+    */
+    
+
+
 }
