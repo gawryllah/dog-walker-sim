@@ -85,7 +85,7 @@ public class UIManager : MonoBehaviour, IUIHandler
             var taskUI = Instantiate(taskCompUI);
             taskUI.transform.SetParent(listOfTasksGO.transform);
             taskUI.GetComponentInChildren<TMP_Text>().text = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}, dog: {task.TaskDog.DogName}, where: {task.TaskAddress.transform.position}, money: {task.TaskPrice}";
-            //taskUI.GetComponent<RectTransform>().SetAsLastSibling();
+       
         }
     }
 
