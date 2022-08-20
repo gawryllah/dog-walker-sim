@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00075febe16ac1f4f8636f4c2bb94325, type: 3}
   m_Name: DogSO 8
   m_EditorClassIdentifier: 
-  dogName: Brutus
-  agressivness: 13.735067
-  listeningToLeader: 25.942165
+  dogName: Jackson
+  agressivness: 76.250145
+  listeningToLeader: 26.010101
   sympathyForPlayer: 0
-  triggeringRange: 23.302004
+  triggeringRange: 9.207564
   dogGO: {fileID: 5713651709909756651, guid: 326d742195fb7fc49a824057cf14b4ea, type: 3}

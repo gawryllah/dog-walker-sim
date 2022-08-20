@@ -31,6 +31,7 @@ public class Client
         this.dog = dog;
         IsTaskAssigned = false;
         priceFactor = Random.Range(0.25f, 1f);
+        //this.id++;
     }
 
     public Client(ClientSO clientSO)
@@ -42,6 +43,7 @@ public class Client
         this.dog = CreateDog(clientSO.DogSO);
         IsTaskAssigned = false;
         priceFactor = clientSO.PriceFactor;
+        //this.id++;
     }
 
     private Dog CreateDog(DogSO dogSO)

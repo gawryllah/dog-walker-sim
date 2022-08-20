@@ -32,6 +32,6 @@ public class TaskManager : MonoBehaviour
 
     public void PrintActiveTask()
     {
-        Debug.Log($"At {this} ActiveTask: {activeTask.ID}, {activeTask.TaskClient.FirstName}, {activeTask.TaskDog.DogName}, {activeTask.TaskAddress.transform.position}, {activeTask.TaskPrice}");
+        Debug.Log($"At {this} ActiveTask: {activeTask.ID}, {activeTask.TaskClient.FirstName} {activeTask.TaskClient.Surname}, {activeTask.TaskDog.DogName}, {activeTask.TaskAddress.transform.position}, {activeTask.TaskPrice}");
     }
 }
