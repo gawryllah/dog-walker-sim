@@ -1,7 +1,6 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour, IUIHandler
 {
@@ -23,7 +22,10 @@ public class UIManager : MonoBehaviour, IUIHandler
     [SerializeField] private GameObject detailOfTaskGO;
 
     [SerializeField] private GameObject taskCompUI;
-    ///
+
+
+    /// 
+
 
 
     private void Awake()
@@ -44,6 +46,8 @@ public class UIManager : MonoBehaviour, IUIHandler
     {
 
         TurnOffUI();
+
+
     }
 
     private void TurnOffUI()
@@ -74,6 +78,7 @@ public class UIManager : MonoBehaviour, IUIHandler
 
     public void CreateUITask()
     {
+
         foreach (Transform child in listOfTasksGO.transform)
         {
             if (child.GetComponent<Image>() == null)
@@ -83,23 +88,38 @@ public class UIManager : MonoBehaviour, IUIHandler
         foreach (Task task in TaskGenerator.Instance.TasksList)
         {
             var taskUI = Instantiate(taskCompUI);
-            taskUI.transform.SetParent(listOfTasksGO.transform);
+            taskUI.transform.SetParent(listOfTasksGO.transform, false);
             taskUI.GetComponentInChildren<TMP_Text>().text = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}, dog: {task.TaskDog.DogName}, where: {task.TaskAddress.transform.position}, money: {task.TaskPrice}";
-       
         }
     }
 
-    /*
-    void clearChildrenOfListOfTasks(GameObject go)
+    public void SetActiveTask(GameObject button)
     {
-        foreach (Transform child in go.transform)
+
+        GameObject[] btns = GameObject.FindGameObjectsWithTag("TaskCompUI");
+
+        int index = 0;
+        foreach (GameObject btn in btns)
         {
-            if(child.GetComponent<Image>() == null)
-                Destroy(child.gameObject);
+
+
+            if (btn == button)
+            {
+                Debug.Log($"Match: {btn.GetInstanceID()} == {button.GetInstanceID()}");
+
+                Debug.Log("\n");
+                TaskManager.Instance.ActiveTask = TaskGenerator.Instance.TasksList[index];
+                break;
+
+            }
+            index++;
+
+
         }
+
+        TaskManager.Instance.PrintActiveTask();
     }
-    */
-    
+
 
 
 }

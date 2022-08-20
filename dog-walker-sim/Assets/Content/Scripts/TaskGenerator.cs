@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -103,7 +102,7 @@ public class TaskGenerator : MonoBehaviour
 
 
         //yield return new WaitForSecondsRealtime(Random.Range(600f, 1200f));
-         
+
         yield return new WaitForSeconds(25f); //still thinking if i want to co
         if (client.IsTaskAssigned)
             client.IsTaskAssigned = false;
@@ -122,6 +121,10 @@ public class TaskGenerator : MonoBehaviour
         }
     }
 
+    public void printTask(Task task)
+    {
+        Debug.Log($"Task {task.ID}: {task.TaskClient.FirstName} {task.TaskClient.Surname}, {task.TaskDog.DogName}, {task.TaskPrice}");
+    }
 
     /*
     void InitDogsList()

@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour, IUIHandler
 
     public bool GameOn { get; set; } = false;
 
-
     private void Awake()
     {
         if (instance != null && instance != this)

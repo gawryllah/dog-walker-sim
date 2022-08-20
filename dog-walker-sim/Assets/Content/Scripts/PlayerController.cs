@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Interacted");
         }
-        
+
     }
 
     void LogHandler()
