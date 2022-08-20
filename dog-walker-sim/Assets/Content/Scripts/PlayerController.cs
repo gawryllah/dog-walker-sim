@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         if (inputManager.GetPlayerLogClicked())
         {
-            if (UIManager.Instance.LogOpened)
+            if (UIManager.Instance.LogOpen)
             {
                 GameManager.Instance.CloseLog();
             }
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
     void ToggleCursorLock()
     {
-        if (UIManager.Instance.LogOpened)
+        if (UIManager.Instance.LogOpen)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

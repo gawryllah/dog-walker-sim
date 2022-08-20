@@ -393,7 +393,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'Client: Elsie Wall'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -650,7 +650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'Task details: Place: Cube (9) at (-290.74, -95.33, -241.90), for: $65'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'Dog: Simba, agressivness: 90, LTL: 45, SFP: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1145,9 +1145,12 @@ MonoBehaviour:
   canvasHandler: {fileID: 3370548487045270867}
   logHandler: {fileID: 3370548486194033917}
   listOfTasksGO: {fileID: 3370548488135130975}
-  detailOfTaskGO: {fileID: 3370548487637129927}
   taskCompUI: {fileID: 4867756253404595719, guid: 051380699c4aa824192f40dbb0a84014,
     type: 3}
+  detailOfTaskGO: {fileID: 3370548487637129927}
+  clientText: {fileID: 3370548486904063013}
+  dogText: {fileID: 3370548487469393877}
+  taskDetailsText: {fileID: 3370548486979851393}
 --- !u!1 &3370548487614227358
 GameObject:
   m_ObjectHideFlags: 0

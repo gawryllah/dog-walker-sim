@@ -17,13 +17,17 @@ public class UIManager : MonoBehaviour, IUIHandler
     //UI
     [SerializeField] private GameObject canvasHandler;
 
-    [SerializeField] private GameObject logHandler; public bool LogOpened { get { return logHandler.activeSelf; } }
+    [SerializeField] private GameObject logHandler; public bool LogOpen { get { return logHandler.activeSelf; } }
     [SerializeField] private GameObject listOfTasksGO;
-    [SerializeField] private GameObject detailOfTaskGO;
-
+    
     [SerializeField] private GameObject taskCompUI;
 
+    [SerializeField] private GameObject detailOfTaskGO;
+    [SerializeField] private TMP_Text clientText;
+    [SerializeField] private TMP_Text dogText;
+    [SerializeField] private TMP_Text taskDetailsText;
 
+    private int lastChosenIndex;
     /// 
 
 
@@ -105,10 +109,12 @@ public class UIManager : MonoBehaviour, IUIHandler
 
             if (btn == button)
             {
+                lastChosenIndex = index;
                 Debug.Log($"Match: {btn.GetInstanceID()} == {button.GetInstanceID()}");
 
                 Debug.Log("\n");
                 TaskManager.Instance.ActiveTask = TaskGenerator.Instance.TasksList[index];
+                SetDetailsOfTask(TaskGenerator.Instance.TasksList[index]);
                 break;
 
             }
@@ -118,6 +124,39 @@ public class UIManager : MonoBehaviour, IUIHandler
         }
 
         TaskManager.Instance.PrintActiveTask();
+    }
+
+    void SetDetailsOfTask(Task task)
+    {
+        detailOfTaskGO.SetActive(false);
+
+        clientText.enableAutoSizing = false;
+        dogText.enableAutoSizing = false;
+        taskDetailsText.enableAutoSizing = false;
+
+        clientText.SetText($"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}");
+        //clientText.text = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}";
+
+        
+        dogText.SetText($"Dog: {task.TaskDog.DogName}, agressivness: {(int)task.TaskDog.DogAgressivness}, LTL: {(int)task.TaskDog.DogListeningToLeader}, SFP: {(int)task.TaskDog.DogSympathyForPlayer}");
+        //dogText.text = $"Dog: {task.TaskDog.DogName}, agressivness: {task.TaskDog.DogAgressivness}, LTL: {task.TaskDog.DogListeningToLeader}, SFP: {task.TaskDog.DogSympathyForPlayer}";
+
+        
+        taskDetailsText.SetText($"Task details: Place: {task.TaskAddress.name} at {task.TaskAddress.transform.position}, for: ${task.TaskPrice}");
+        //taskDetailsText.text = $"Task details: Place: {task.TaskAddress.name} at {task.TaskAddress.transform.position}, for: ${task.TaskPrice}";
+
+        clientText.enableAutoSizing = true;
+        dogText.enableAutoSizing = true;
+        taskDetailsText.enableAutoSizing = true;
+
+        clientText.ForceMeshUpdate();
+        dogText.ForceMeshUpdate();
+        taskDetailsText.ForceMeshUpdate();
+
+        detailOfTaskGO.SetActive(true);
+        
+
+        Canvas.ForceUpdateCanvases();
     }
 
 
