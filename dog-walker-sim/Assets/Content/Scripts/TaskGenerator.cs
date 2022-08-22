@@ -126,6 +126,12 @@ public class TaskGenerator : MonoBehaviour
         Debug.Log($"Task {task.ID}: {task.TaskClient.FirstName} {task.TaskClient.Surname}, {task.TaskDog.DogName}, {task.TaskPrice}");
     }
 
+    public void DestroyChosenTask(Task task)
+    {
+        tasksList.Remove(task);
+        Debug.Log($"Task removed: {task.ID}, client: {task.TaskClient.FirstName} {task.TaskClient.Surname}, client: {task.TaskDog.DogName}");
+    }
+
     /*
     void InitDogsList()
     {

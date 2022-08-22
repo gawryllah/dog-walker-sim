@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour, IUIHandler
         }
     }
 
+    public TaskEvent SetActiveTaskEvent;
+    public TaskEvent DestroyTaskEvent;
+
     //UI
     [SerializeField] private GameObject canvasHandler;
 
@@ -31,11 +34,13 @@ public class UIManager : MonoBehaviour, IUIHandler
 
     private static string sClientText;
     private static string sDogText;
-    private static string sTasksDetailsText; 
+    private static string sTasksDetailsText;
 
     private GameObject[] btns;
 
     private int lastChosenIndex;
+    private GameObject lastChosenButton;
+    private Task lastChosenTask;
     /// 
 
 
@@ -59,7 +64,18 @@ public class UIManager : MonoBehaviour, IUIHandler
 
         TurnOffUI();
 
+        InitEvents();
 
+        ResetTextDetails();
+    }
+
+    private void InitEvents()
+    {
+        if (SetActiveTaskEvent == null) SetActiveTaskEvent = new TaskEvent();
+        SetActiveTaskEvent.AddListener(TaskManager.Instance.SetActiveTask);
+
+        if (DestroyTaskEvent == null) DestroyTaskEvent = new TaskEvent();
+        DestroyTaskEvent.AddListener(TaskManager.Instance.SetActiveTask);
     }
 
     private void TurnOffUI()
@@ -102,11 +118,11 @@ public class UIManager : MonoBehaviour, IUIHandler
             var taskUI = Instantiate(taskCompUI);
             taskUI.transform.SetParent(listOfTasksGO.transform, false);
             taskUI.GetComponentInChildren<TMP_Text>().text = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}, dog: {task.TaskDog.DogName}, where: {task.TaskAddress.transform.position}, money: {task.TaskPrice}";
-            taskUI.GetComponent<Button>().onClick.AddListener(() => this.SetActiveTask(taskUI));
+            taskUI.GetComponent<Button>().onClick.AddListener(() => this.GetClickedButton(taskUI));
         }
     }
 
-    public void SetActiveTask(GameObject button)
+    public void GetClickedButton(GameObject button)
     {
         Debug.Log($"At {this}, clicked {button.name}:{button.GetInstanceID()}");
 
@@ -119,11 +135,13 @@ public class UIManager : MonoBehaviour, IUIHandler
 
             if (btn == button)
             {
+                lastChosenButton = button;
                 lastChosenIndex = index;
                 Debug.Log($"Match: {btn.GetInstanceID()} == {button.GetInstanceID()}");
 
                 Debug.Log("\n");
-                TaskManager.Instance.ActiveTask = TaskGenerator.Instance.TasksList[index];
+                //TaskManager.Instance.ActiveTask = TaskGenerator.Instance.TasksList[index];
+                lastChosenTask = TaskGenerator.Instance.TasksList[index];
 
                 break;
 
@@ -132,30 +150,64 @@ public class UIManager : MonoBehaviour, IUIHandler
 
 
         }
-        SetDetailsOfTask(TaskManager.Instance.ActiveTask);
+        SetDetailsOfTask(lastChosenTask);
 
-        TaskManager.Instance.PrintActiveTask();
+        
+    }
+
+    public void SetActiveTask()
+    {
+
+        SetActiveTaskEvent?.Invoke(lastChosenTask);
+        DestroyTaskEvent?.Invoke(lastChosenTask);
+       
+        foreach (GameObject btn in btns)
+        {
+            if (btn == lastChosenButton)
+            {
+                Destroy(btn);
+            }
+        }
+
+    }
+
+    public void DeclineTask()
+    {
+        foreach (GameObject btn in btns)
+        {
+            if (btn == lastChosenButton)
+            {
+                DestroyTaskEvent?.Invoke(lastChosenTask);
+                Destroy(btn);
+            }
+        }
+        ResetTextDetails();
     }
 
 
 
     void SetDetailsOfTask(Task task)
     {
-        
+
 
         sClientText = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}";
         //clientText.text = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}";
 
 
-       sDogText= $"Dog: {task.TaskDog.DogName}, agressivness: {(int)task.TaskDog.DogAgressivness}, LTL: {(int)task.TaskDog.DogListeningToLeader}, SFP: {(int)task.TaskDog.DogSympathyForPlayer}";
+        sDogText = $"Dog: {task.TaskDog.DogName}, agressivness: {(int)task.TaskDog.DogAgressivness}, LTL: {(int)task.TaskDog.DogListeningToLeader}, SFP: {(int)task.TaskDog.DogSympathyForPlayer}";
         //dogText.text = $"Dog: {task.TaskDog.DogName}, agressivness: {task.TaskDog.DogAgressivness}, LTL: {task.TaskDog.DogListeningToLeader}, SFP: {task.TaskDog.DogSympathyForPlayer}";
 
 
-       sTasksDetailsText = $"Task details: Place: {task.TaskAddress.name} at {task.TaskAddress.transform.position}, for: ${task.TaskPrice}";
+        sTasksDetailsText = $"Task details: Place: {task.TaskAddress.name} at {task.TaskAddress.transform.position}, for: ${task.TaskPrice}";
         //taskDetailsText.text = $"Task details: Place: {task.TaskAddress.name} at {task.TaskAddress.transform.position}, for: ${task.TaskPrice}";
 
         UpdateTextObjects(sClientText, sDogText, sTasksDetailsText);
 
+    }
+
+    void ResetTextDetails()
+    {
+        UpdateTextObjects("", "", "");
     }
 
     void UpdateTextObjects(string clientT, string dogT, string taskDetailsT)

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class TaskManager : MonoBehaviour
@@ -30,8 +31,32 @@ public class TaskManager : MonoBehaviour
            new Dog(0, "test", 0, 0, 0, 0, null), 0f);
     }
 
-    public void PrintActiveTask()
+    public void printActiveTask()
     {
         Debug.Log($"At {this} ActiveTask: {activeTask.ID}, {activeTask.TaskClient.FirstName} {activeTask.TaskClient.Surname}, {activeTask.TaskDog.DogName}, {activeTask.TaskAddress.transform.position}, {activeTask.TaskPrice}");
+    }
+
+    public void SetActiveTask(Task task)
+    {
+        this.activeTask = task;
+        printActiveTask();
+        StartCoroutine(TillTaskStartCountdown(task));
+    }
+
+    private IEnumerator TillTaskStartCountdown(Task task)
+    {
+        yield return new WaitForSeconds(10f);
+        if (!task.IsTaskStarted)
+        {
+            Debug.Log($"Runned of time for task {task.ID}, {task.TaskClient.FirstName} {task.TaskClient.Surname}, {task.TaskDog.DogName}");
+            task = null;
+            activeTask = null;
+
+        }
+    }
+
+    private IEnumerator TimeForTaskDone(Task task)
+    {
+        yield return null;
     }
 }
