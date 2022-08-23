@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class TaskGenerator : MonoBehaviour
 {
-    [SerializeField] private GameObject playersDogPlace;
+
     [SerializeField] private SOExtens soExtens;
 
     [SerializeField] [Range(0, 100)] private int lowerPriceRange = 20; public int LowerPriceRange { get { return lowerPriceRange; } }
@@ -68,25 +68,17 @@ public class TaskGenerator : MonoBehaviour
             if (!client.IsTaskAssigned)
             {
 
-                if (tasksList.Count != 0)
-                {
-                    //tasksList.Clear();
-                    foreach (GameObject go in instansiatedDogs)
-                    {
-                        Destroy(go);
-                    }
-                }
 
                 var task = new Task(client, client.Dog, (Random.Range(lowerPriceRange, higerPriceRange) * client.PriceFactor));
                 client.IsTaskAssigned = true;
 
                 tasksList.Add(task);
 
-                GameObject dogInstance = Instantiate(task.TaskDog.DogGO, playersDogPlace.transform.position, Quaternion.identity);
-                dogInstance.GetComponent<DogUIRenderer>().setName($"{task.TaskDog.DogName}");
-                dogInstance.transform.SetParent(playersDogPlace.transform);
+                //GameObject dogInstance = Instantiate(task.TaskDog.DogGO, playersDogPlace.transform.position, Quaternion.identity);
+                //dogInstance.GetComponent<DogUIRenderer>().setName($"{task.TaskDog.DogName}");
+                //dogInstance.transform.SetParent(playersDogPlace.transform);
 
-                instansiatedDogs.Add(dogInstance);
+                //instansiatedDogs.Add(dogInstance);
 
                 Debug.Log($"Task {task.ID} created for: {client.ID} {client.FirstName} {client.Surname}");
 

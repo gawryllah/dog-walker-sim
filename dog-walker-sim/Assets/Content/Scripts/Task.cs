@@ -12,7 +12,7 @@ public class Task
     [SerializeField] private GameObject address; public GameObject TaskAddress { get { return address; } }
     [SerializeField] private float price; public float TaskPrice { get { return (int)price; } }
 
-    [SerializeField] private bool isTaskStarted; public bool IsTaskStarted { get { return isTaskStarted;} set { isTaskStarted = value; } }
+    [SerializeField] private bool isTaskStarted; public bool IsTaskStarted { get { return isTaskStarted; } set { isTaskStarted = value; } }
 
     public Task(Client client, Dog dog, float price)
     {

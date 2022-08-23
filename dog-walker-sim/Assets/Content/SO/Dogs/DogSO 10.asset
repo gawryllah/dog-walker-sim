@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00075febe16ac1f4f8636f4c2bb94325, type: 3}
   m_Name: DogSO 10
   m_EditorClassIdentifier: 
-  dogName: Stella
-  agressivness: 59.410507
-  listeningToLeader: 45.40557
+  dogName: Scout
+  agressivness: 13.741469
+  listeningToLeader: 80.65285
   sympathyForPlayer: 0
-  triggeringRange: 36.43102
+  triggeringRange: 15.871724
   dogGO: {fileID: 5713651709909756651, guid: 326d742195fb7fc49a824057cf14b4ea, type: 3}

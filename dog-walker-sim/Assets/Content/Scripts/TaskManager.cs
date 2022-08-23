@@ -9,6 +9,8 @@ public class TaskManager : MonoBehaviour
 
     [SerializeField] private Task activeTask; public Task ActiveTask { get { return activeTask; } set { activeTask = value; } }
 
+    [SerializeField] private GameObject playersDogPlace;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -40,7 +42,7 @@ public class TaskManager : MonoBehaviour
     {
         this.activeTask = task;
         printActiveTask();
-        StartCoroutine(TillTaskStartCountdown(task));
+        //StartCoroutine(TillTaskStartCountdown(task));
     }
 
     private IEnumerator TillTaskStartCountdown(Task task)
@@ -52,11 +54,25 @@ public class TaskManager : MonoBehaviour
             task = null;
             activeTask = null;
 
+
         }
     }
 
     private IEnumerator TimeForTaskDone(Task task)
     {
         yield return null;
+    }
+
+    public void InstantiateDogkFromTask(GameObject address)
+    {
+        if (activeTask.TaskAddress.gameObject.name == address.name)
+        {
+            Debug.Log($"Dog {activeTask.TaskDog.DogName} spawned");
+            var dogGO = Instantiate(activeTask.TaskDog.DogGO, playersDogPlace.transform);
+            if (dogGO.GetComponent<DogUIRenderer>() != null)
+            {
+                dogGO.GetComponent<DogUIRenderer>().setName(activeTask.TaskDog.DogName);
+            }
+        }
     }
 }

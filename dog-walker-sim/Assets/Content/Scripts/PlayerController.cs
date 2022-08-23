@@ -6,13 +6,21 @@ public class PlayerController : MonoBehaviour
     public PlayerControlsSO playerControls;
 
     private CharacterController controller;
+
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private Transform cameraTransform;
 
     private InputManager inputManager;
 
+    private GameObject lasthit; public GameObject RayCastInfo { get { return lasthit; } }
+
     //private bool isLogOpened;
+
+    private Ray ray;
+    private RaycastHit hit;
+    [SerializeField] private LayerMask interactableLayer;
+    [SerializeField] private float rayLength = 2.5f;
 
     private void Start()
     {
@@ -29,6 +37,8 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Interactions();
+        if (ray.origin != null)
+            Debug.DrawLine(ray.origin, ray.direction * rayLength);
     }
 
     void Move()
@@ -65,12 +75,41 @@ public class PlayerController : MonoBehaviour
 
     void Interact()
     {
+
+
+
         if (groundedPlayer && inputManager.GetPlayerInteracted())
         {
-            Debug.Log("Interacted");
+            ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+
+
+            if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
+            {
+                lasthit = hit.transform.gameObject;
+
+                switch (lasthit.tag)
+                {
+                    case "TaskDestination":
+
+                        if (lasthit.GetComponent<TaskDestination>() != null)
+                        {
+                            lasthit.GetComponent<TaskDestination>().Interact();
+                        }
+                        break;
+                }
+            }
+
+
+            Debug.DrawLine(ray.origin, hit.point, Color.red);
+
         }
 
+
+
     }
+
+
 
     void LogHandler()
     {

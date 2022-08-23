@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour, IUIHandler
         SetActiveTaskEvent.AddListener(TaskManager.Instance.SetActiveTask);
 
         if (DestroyTaskEvent == null) DestroyTaskEvent = new TaskEvent();
-        DestroyTaskEvent.AddListener(TaskManager.Instance.SetActiveTask);
+        DestroyTaskEvent.AddListener(TaskGenerator.Instance.DestroyChosenTask);
     }
 
     private void TurnOffUI()
@@ -152,7 +152,7 @@ public class UIManager : MonoBehaviour, IUIHandler
         }
         SetDetailsOfTask(lastChosenTask);
 
-        
+
     }
 
     public void SetActiveTask()
@@ -160,7 +160,7 @@ public class UIManager : MonoBehaviour, IUIHandler
 
         SetActiveTaskEvent?.Invoke(lastChosenTask);
         DestroyTaskEvent?.Invoke(lastChosenTask);
-       
+
         foreach (GameObject btn in btns)
         {
             if (btn == lastChosenButton)
