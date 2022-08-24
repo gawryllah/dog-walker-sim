@@ -6,19 +6,18 @@ public class DogUIRenderer : MonoBehaviour
 
     public TMP_Text dogsNameText;
     public GameObject textHolder;
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    public Transform cam;
+    private void Start()    
+    {
+        cam = Camera.main.transform;
+    }
+    void LateUpdate()
+    {
+        transform.LookAt(textHolder.transform.position + cam.forward);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        dogsNameText.transform.rotation = Camera.main.transform.rotation;
-    }
-
-    public void setName(string name)
+    public void SetName(string name)
     {
         dogsNameText.text = name;
     }

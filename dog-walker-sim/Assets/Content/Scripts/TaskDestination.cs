@@ -11,10 +11,16 @@ public class TaskDestination : MonoBehaviour, IInteractable
         taskDogPass.AddListener(TaskManager.Instance.InstantiateDogkFromTask);
     }
 
+    private void Awake()
+    {
+
+        go = transform.gameObject;
+    }
+
     private void Start()
     {
+
         InitEvents();
-        go = transform.gameObject;
     }
 
     public void Interact()

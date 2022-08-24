@@ -11,6 +11,10 @@ public class TaskManager : MonoBehaviour
 
     [SerializeField] private GameObject playersDogPlace;
 
+
+    Transform nosePos;
+    GameObject dog;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -29,8 +33,8 @@ public class TaskManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        activeTask = new Task(new Client(0, "test", "test", null, new Dog(0, "test", 0, 0, 0, 0, null)),
-           new Dog(0, "test", 0, 0, 0, 0, null), 0f);
+        //activeTask = new Task(new Client(0, "test", "test", null, new Dog(0, "test", 0, 0, 0, 0, null)), new Dog(0, "test", 0, 0, 0, 0, null), 0f);
+        activeTask = null;
     }
 
     public void printActiveTask()
@@ -65,13 +69,38 @@ public class TaskManager : MonoBehaviour
 
     public void InstantiateDogkFromTask(GameObject address)
     {
-        if (activeTask.TaskAddress.gameObject.name == address.name)
+        Debug.Log($"Invoked init dodge");
+        if (activeTask != null)
         {
-            Debug.Log($"Dog {activeTask.TaskDog.DogName} spawned");
-            var dogGO = Instantiate(activeTask.TaskDog.DogGO, playersDogPlace.transform);
-            if (dogGO.GetComponent<DogUIRenderer>() != null)
+            if (activeTask.TaskAddress.gameObject.name == address.name)
             {
-                dogGO.GetComponent<DogUIRenderer>().setName(activeTask.TaskDog.DogName);
+               
+                Debug.Log($"Dog {activeTask.TaskDog.DogName} spawned");
+                var dogGO = Instantiate(activeTask.TaskDog.DogGO, playersDogPlace.transform);
+
+                foreach (Transform tr in dogGO.transform)
+                {
+                    if(tr.name == "Nose")
+                    {
+                        nosePos = tr;
+                        Debug.Log("Nosed");
+
+                    }
+                    
+                    if(tr.gameObject.tag == "Dog")
+                    {
+                        dog = tr.gameObject;
+                    }
+                }
+
+
+                
+                dog.transform.LookAt(nosePos); ;
+
+                if (dogGO.GetComponent<DogUIRenderer>() != null)
+                {
+                    dogGO.GetComponent<DogUIRenderer>().SetName(activeTask.TaskDog.DogName);
+                }
             }
         }
     }
