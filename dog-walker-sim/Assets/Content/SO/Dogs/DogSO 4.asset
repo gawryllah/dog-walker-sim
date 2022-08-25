@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00075febe16ac1f4f8636f4c2bb94325, type: 3}
   m_Name: DogSO 4
   m_EditorClassIdentifier: 
-  dogName: Bailey
-  agressivness: 40.10088
-  listeningToLeader: 60.371727
+  dogName: Layla
+  agressivness: 32.42026
+  listeningToLeader: 83.15247
   sympathyForPlayer: 0
-  triggeringRange: 32.609837
+  triggeringRange: 27.598806
   dogGO: {fileID: 2512701836987059066, guid: 4f0eb6b8187aedc4b819bf643fc4e9e4, type: 3}

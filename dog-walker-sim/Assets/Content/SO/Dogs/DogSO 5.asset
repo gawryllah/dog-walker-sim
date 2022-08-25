@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00075febe16ac1f4f8636f4c2bb94325, type: 3}
   m_Name: DogSO 5
   m_EditorClassIdentifier: 
-  dogName: Cody
-  agressivness: 44.19436
-  listeningToLeader: 3.0515432
+  dogName: Roscoe
+  agressivness: 49.848537
+  listeningToLeader: 3.5244823
   sympathyForPlayer: 0
-  triggeringRange: 11.523318
+  triggeringRange: 35.335594
   dogGO: {fileID: 2512701836987059066, guid: 4f0eb6b8187aedc4b819bf643fc4e9e4, type: 3}

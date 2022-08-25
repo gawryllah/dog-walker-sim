@@ -33,8 +33,8 @@ public class TaskManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //activeTask = new Task(new Client(0, "test", "test", null, new Dog(0, "test", 0, 0, 0, 0, null)), new Dog(0, "test", 0, 0, 0, 0, null), 0f);
         activeTask = null;
+        UIManager.Instance.OnCancelTask += CancelActiveTask;
     }
 
     public void printActiveTask()
@@ -48,6 +48,14 @@ public class TaskManager : MonoBehaviour
         printActiveTask();
         //StartCoroutine(TillTaskStartCountdown(task));
     }
+
+    private void CancelActiveTask()
+    {
+        activeTask = null;
+        Debug.Log($"At {this}, nulled AT: {activeTask == null}");
+    }
+
+    
 
     private IEnumerator TillTaskStartCountdown(Task task)
     {

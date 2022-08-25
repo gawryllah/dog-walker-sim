@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,9 @@ public class UIManager : MonoBehaviour, IUIHandler
     public TaskEvent SetActiveTaskEvent;
     public TaskEvent DestroyTaskEvent;
 
+    public delegate void CancelTaskEvent();
+    public event CancelTaskEvent OnCancelTask;
+
     //UI
     [SerializeField] private GameObject canvasHandler;
 
@@ -32,11 +36,15 @@ public class UIManager : MonoBehaviour, IUIHandler
     [SerializeField] private TMP_Text dogText;
     [SerializeField] private TMP_Text taskDetailsText;
 
+    [SerializeField] private GameObject[] manipulationBtns;
+    [SerializeField] private GameObject cancelBtn;
+    [SerializeField] private bool lockedTask;
+
     private static string sClientText;
     private static string sDogText;
     private static string sTasksDetailsText;
 
-    private GameObject[] btns;
+    private GameObject[] taskComps;
 
     private int lastChosenIndex;
     private GameObject lastChosenButton;
@@ -62,11 +70,13 @@ public class UIManager : MonoBehaviour, IUIHandler
     private void Start()
     {
 
-        TurnOffUI();
+        InitUI();
 
         InitEvents();
 
         ResetTextDetails();
+
+        lockedTask = false;
     }
 
     private void InitEvents()
@@ -78,7 +88,7 @@ public class UIManager : MonoBehaviour, IUIHandler
         DestroyTaskEvent.AddListener(TaskGenerator.Instance.DestroyChosenTask);
     }
 
-    private void TurnOffUI()
+    private void InitUI()
     {
 
         //init (?)
@@ -88,7 +98,33 @@ public class UIManager : MonoBehaviour, IUIHandler
 
         canvasHandler.SetActive(false);
         logHandler.SetActive(false);
+
+        goSetActive(manipulationBtns, false);
+        cancelBtn.SetActive(false);
     }
+
+    void goSetActive(GameObject go, bool status)
+    {
+        go.SetActive(status);
+    }
+
+    void goSetActive(GameObject[] gos, bool status)
+    {
+        foreach (GameObject go in gos)
+        {
+            go.SetActive(status);
+        }
+    }
+
+    void goSetActive(List<GameObject> gos, bool status)
+    {
+
+        foreach (GameObject go in gos)
+        {
+            go.SetActive(status);
+        }
+    }
+
 
     public void OpenLog()
     {
@@ -124,12 +160,19 @@ public class UIManager : MonoBehaviour, IUIHandler
 
     public void GetClickedButton(GameObject button)
     {
-        Debug.Log($"At {this}, clicked {button.name}:{button.GetInstanceID()}");
+        if (lockedTask)
+        {
+            goSetActive(manipulationBtns, false);
+        }else
+        {
+            goSetActive(manipulationBtns, true);
+        }
+        //Debug.Log($"At {this}, clicked {button.name}:{button.GetInstanceID()}");
 
-        btns = GameObject.FindGameObjectsWithTag("TaskCompUI");
+        taskComps = GameObject.FindGameObjectsWithTag("TaskCompUI");
 
         int index = 0;
-        foreach (GameObject btn in btns)
+        foreach (GameObject btn in taskComps)
         {
 
 
@@ -137,9 +180,9 @@ public class UIManager : MonoBehaviour, IUIHandler
             {
                 lastChosenButton = button;
                 lastChosenIndex = index;
-                Debug.Log($"Match: {btn.GetInstanceID()} == {button.GetInstanceID()}");
+                //Debug.Log($"Match: {btn.GetInstanceID()} == {button.GetInstanceID()}");
 
-                Debug.Log("\n");
+                //Debug.Log("\n");
                 //TaskManager.Instance.ActiveTask = TaskGenerator.Instance.TasksList[index];
                 lastChosenTask = TaskGenerator.Instance.TasksList[index];
 
@@ -161,7 +204,7 @@ public class UIManager : MonoBehaviour, IUIHandler
         SetActiveTaskEvent?.Invoke(lastChosenTask);
         DestroyTaskEvent?.Invoke(lastChosenTask);
 
-        foreach (GameObject btn in btns)
+        foreach (GameObject btn in taskComps)
         {
             if (btn == lastChosenButton)
             {
@@ -169,11 +212,17 @@ public class UIManager : MonoBehaviour, IUIHandler
             }
         }
 
+        lockedTask = true;
+
+        goSetActive(manipulationBtns, false);
+
+        cancelBtn.SetActive(true);
+
     }
 
     public void DeclineTask()
     {
-        foreach (GameObject btn in btns)
+        foreach (GameObject btn in taskComps)
         {
             if (btn == lastChosenButton)
             {
@@ -184,24 +233,31 @@ public class UIManager : MonoBehaviour, IUIHandler
         ResetTextDetails();
     }
 
+    public void CancelTask()
+    {
+
+        OnCancelTask.Invoke();
+        UpdateTextObjects("", "", "");
+        lockedTask = false;
+        cancelBtn.SetActive(false);
+
+
+    }
+
 
 
     void SetDetailsOfTask(Task task)
     {
 
+        if (!lockedTask)
+        {
+  
+            clientText.text = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}";
 
-        sClientText = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}";
-        //clientText.text = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}";
+            dogText.text = $"Dog: {task.TaskDog.DogName}, agressivness: {(int)task.TaskDog.DogAgressivness}, LTL: {(int)task.TaskDog.DogListeningToLeader}, SFP: {(int)task.TaskDog.DogSympathyForPlayer}";
 
-
-        sDogText = $"Dog: {task.TaskDog.DogName}, agressivness: {(int)task.TaskDog.DogAgressivness}, LTL: {(int)task.TaskDog.DogListeningToLeader}, SFP: {(int)task.TaskDog.DogSympathyForPlayer}";
-        //dogText.text = $"Dog: {task.TaskDog.DogName}, agressivness: {task.TaskDog.DogAgressivness}, LTL: {task.TaskDog.DogListeningToLeader}, SFP: {task.TaskDog.DogSympathyForPlayer}";
-
-
-        sTasksDetailsText = $"Task details: Place: {task.TaskAddress.name} at {task.TaskAddress.transform.position}, for: ${task.TaskPrice}";
-        //taskDetailsText.text = $"Task details: Place: {task.TaskAddress.name} at {task.TaskAddress.transform.position}, for: ${task.TaskPrice}";
-
-        UpdateTextObjects(sClientText, sDogText, sTasksDetailsText);
+            taskDetailsText.text = $"Task details: Place: {task.TaskAddress.name} at {task.TaskAddress.transform.position}, for: ${task.TaskPrice}";
+        }
 
     }
 
@@ -217,26 +273,6 @@ public class UIManager : MonoBehaviour, IUIHandler
         taskDetailsText.text = taskDetailsT;
 
     }
-
-    /*
-    void SetDetailsOfTask(Task task)
-    {
-
-
-        clientText.text = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}";
-        //clientText.text = $"Client: {task.TaskClient.FirstName} {task.TaskClient.Surname}";
-
-
-        dogText.text = $"Dog: {task.TaskDog.DogName}, agressivness: {(int)task.TaskDog.DogAgressivness}, LTL: {(int)task.TaskDog.DogListeningToLeader}, SFP: {(int)task.TaskDog.DogSympathyForPlayer}";
-        //dogText.text = $"Dog: {task.TaskDog.DogName}, agressivness: {task.TaskDog.DogAgressivness}, LTL: {task.TaskDog.DogListeningToLeader}, SFP: {task.TaskDog.DogSympathyForPlayer}";
-
-
-        taskDetailsText.text = $"Task details: Place: {task.TaskAddress.name} at {task.TaskAddress.transform.position}, for: ${task.TaskPrice}";
-        //taskDetailsText.text = $"Task details: Place: {task.TaskAddress.name} at {task.TaskAddress.transform.position}, for: ${task.TaskPrice}";
-
-    }
-    */
-
 
 
 }

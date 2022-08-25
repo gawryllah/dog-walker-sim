@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492fb482623408c4ea00f9a160521e35, type: 3}
   m_Name: ClientSO 2
   m_EditorClassIdentifier: 
-  firstName: Lewis
-  surname: Conley
+  firstName: Palmer
+  surname: Underwood
   addressGO: {fileID: 5891140320144343033, guid: d52be44089f4aae48b860717c8a992df,
     type: 3}
   dogSO: {fileID: 11400000, guid: 3f92f2cd469a6e4419d933c2cafc0753, type: 2}
-  priceFactor: 0.91828096
+  priceFactor: 0.8007658
