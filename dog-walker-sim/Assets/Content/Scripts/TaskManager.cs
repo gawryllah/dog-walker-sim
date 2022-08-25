@@ -103,7 +103,7 @@ public class TaskManager : MonoBehaviour
 
 
                 
-                dog.transform.LookAt(nosePos); ;
+                //dog.transform.LookAt(nosePos);
 
                 if (dogGO.GetComponent<DogUIRenderer>() != null)
                 {
